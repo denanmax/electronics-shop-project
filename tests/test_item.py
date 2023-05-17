@@ -1,7 +1,5 @@
 """Здесь надо написать тесты с использованием pytest для модуля item."""
 
-import pytest
-from src import item
 from src.item import Item
 
 
@@ -19,6 +17,7 @@ def test_init():
 def test_calculate_total_price():
     """Вывод общей суммы по количеству"""
     assert Item("Автомагнитола", 1000, 5).calculate_total_price() == 5000
+
 
 def test_apply_discount():
     """Вывод общей суммы при скидке"""
