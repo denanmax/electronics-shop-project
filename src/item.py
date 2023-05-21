@@ -1,5 +1,4 @@
 import os.path
-import sys
 import csv
 class Item:
     """
@@ -7,7 +6,7 @@ class Item:
     """
     pay_rate = 1.0
     all = []
-    CSV = '/home/denis/PycharmProjects/electronics-shop-project/src/items.csv'
+
 
 
     def __init__(self, name: str, price: float, quantity: int) -> None:
@@ -18,17 +17,20 @@ class Item:
         :param price: Цена за единицу товара.
         :param quantity: Количество товара в магазине.
         """
-        self.__name = name
+        self.name = name
         self.price = price
         self.quantity = quantity
         Item.all.append(self)
 
     @property
     def name(self):
+        """делаем атрибут name приватным"""
         return self.__name
+
 
     @name.setter
     def name(self, name_lenght: str):
+        """Проверяем что длинна товара не больше 10 символов"""
         if len(name_lenght) > 10:
             raise ValueError("Название товара не должно быть больше 10 символов")
         self.__name = name_lenght
@@ -51,17 +53,21 @@ class Item:
 
     @classmethod
     def instantiate_from_csv(cls):
+        """класс-метод, инициализирующий экземпляры класса Item данными из файла src/items.csv"""
         cls.all.clear()
+        csv_file = "/home/denis/PycharmProjects/electronics-shop-project/src/items.csv"
         try:
-            with open(cls.CSV, newline='') as csvfile:
+            with open(csv_file, newline='') as csvfile:
                 reader = csv.DictReader(csvfile)
                 for row in reader:
                     cls(row['name'], row['price'], row['quantity'])
         except FileNotFoundError:
             print("Нет такого файла")
 
+
     @staticmethod
     def string_to_number(string):
+        """ статический метод, возвращающий число из числа-строки"""
         try:
             line = float(string)
             return int(line)
