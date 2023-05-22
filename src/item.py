@@ -55,7 +55,7 @@ class Item:
     def instantiate_from_csv(cls):
         """класс-метод, инициализирующий экземпляры класса Item данными из файла src/items.csv"""
         cls.all.clear()
-        csv_file = "/home/denis/PycharmProjects/electronics-shop-project/src/items.csv"
+        csv_file = os.path.abspath(r"../src/items.csv")
         try:
             with open(csv_file, newline='') as csvfile:
                 reader = csv.DictReader(csvfile)
