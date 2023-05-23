@@ -49,7 +49,12 @@ def test_instantiate_from_csv():
     with pytest.raises(TypeError):
         Item.instantiate_from_csv("/home/denis/PycharmProjects/electronics-shop-project/src/item.py")
 
-
-
-
-
+def test_repr():
+    with pytest.raises(TypeError):
+        repr(Item(12, 10000, 20))
+    item1 = Item("Смартфон", 10000, 20)
+    assert repr(item1) == "Item('Смартфон', 10000, 20)"
+    item2 = Item("Смартфон", -200, -500)
+    assert repr(item2) == "Item('Смартфон', -200, -500)"
+    item3 = Item('Телек', "2200", "500")
+    assert repr(item3) == "Item('Телек', 2200, 500)"
