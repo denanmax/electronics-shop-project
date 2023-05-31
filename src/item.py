@@ -29,6 +29,9 @@ class Item:
     def __str__(self):
         return f"{self.name}"
 
+    def __add__(self, other):
+        return self.quantity + other.quantity
+
     @property
     def name(self):
         """делаем атрибут name приватным"""
@@ -80,3 +83,5 @@ class Item:
             return int(line)
         except ValueError:
             print("Ошибка: переданная строка не является числом")
+
+

@@ -1,5 +1,6 @@
 """Здесь надо написать тесты с использованием pytest для модуля item."""
 from src.item import Item
+from src.phone import Phone
 import pytest
 
 
@@ -58,3 +59,39 @@ def test_repr():
     assert repr(item2) == "Item('Смартфон', -200, -500)"
     item3 = Item('Телек', "2200", "500")
     assert repr(item3) == "Item('Телек', 2200, 500)"
+
+def test_add():
+    phone1 = Phone("iPhone 14", 120_000, 5, 2)
+    item1 = Item("Смартфон", 10000, 20)
+    assert item1 + phone1 == 25
+    phone1 = 50000
+    with pytest.raises(AttributeError):
+        item1.__add__(phone1)
+    phone = Phone("iPhone", "Apple", 1000, 2)
+    other = "Some object"
+    with pytest.raises(ValueError):
+        phone.__add__(other)
+    phone2 = Phone("Galaxy", "Samsung", 800, 1)
+    assert phone + phone2 == 1800
+
+def tests_phone():
+    phone = Phone("iPhone", 1000, 10, 2)
+    assert phone.name == "iPhone"
+    assert phone.price == 1000
+    assert phone.quantity == 10
+    assert phone.number_of_sim == 2
+    item = Item("Case", 10, 5)
+    assert phone.__add__(item) == 15
+
+def test_nums_of_sim():
+    phone = Phone("iPhone", 1000, 10, 2)
+    with pytest.raises(ValueError):
+        Phone("iPhone", 1000, 10, -1)
+    phone.number_of_sim = 1
+    assert phone.number_of_sim == 1
+    with pytest.raises(ValueError):
+        phone.number_of_sim = -1
+
+def test_phone_repr():
+    phone = Phone("iPhone", 1000, 10, 2)
+    assert repr(phone) == "Phone('iPhone', 1000, 10, 2)"
