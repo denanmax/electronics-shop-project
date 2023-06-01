@@ -1,4 +1,5 @@
 class MixinLanguage:
+    """Mixin для хранения и изменения аскладки клавиатуры"""
     def __init__(self):
         self._language = 'EN'
 
@@ -8,6 +9,7 @@ class MixinLanguage:
 
 
 class KeyBoard(MixinLanguage):
+    """Класс для товара клавиатура"""
     def __init__(self, name, price, rating):
         super().__init__()
         self.name = name
