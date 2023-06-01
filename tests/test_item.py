@@ -1,6 +1,7 @@
 """Здесь надо написать тесты с использованием pytest для модуля item."""
 from src.item import Item
 from src.phone import Phone
+from src.keyboard import KeyBoard
 import pytest
 
 
@@ -95,3 +96,19 @@ def test_nums_of_sim():
 def test_phone_repr():
     phone = Phone("iPhone", 1000, 10, 2)
     assert repr(phone) == "Phone('iPhone', 1000, 10, 2)"
+
+def test_keyboard():
+    kb = KeyBoard('Defender LUX', 9600, 5)
+    assert str(kb) == "Defender LUX"
+    assert kb.price == 9600
+    assert kb.rating == 5
+
+def test_keyboard_lang():
+    kb = KeyBoard('Defender LUX', 9600, 5)
+    assert str(kb.language) == "EN"
+    kb.change_lang()
+    assert str(kb.language) == "RU"
+    kb.change_lang().change_lang()
+    assert str(kb.language) == "RU"
+    with pytest.raises(AttributeError):
+        kb.language = 'CH'
