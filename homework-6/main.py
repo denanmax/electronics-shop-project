@@ -14,3 +14,4 @@ if __name__ == '__main__':
     # В файле items.csv удалена последняя колонка.
     path_incorrect_file = Path(dir_path, '../src/test_item.csv')
     Item.instantiate_from_csv(path_incorrect_file)
+    # InstantiateCSVError: Файл item.csv поврежден
