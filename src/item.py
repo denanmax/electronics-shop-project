@@ -1,5 +1,14 @@
-import os.path
 import csv
+
+class InstantiateCSVError(Exception):
+    """
+    если файл item.csv поврежден (например, отсутствует одна из колонок данных)
+    → выбрасывается исключение InstantiateCSVError с сообщением “Файл item.csv поврежден”.
+    """
+    def __str__(self):
+        return 'Файл item.csv поврежден'
+
+
 class Item:
     """
     Класс для представления товара в магазине.
@@ -61,18 +70,24 @@ class Item:
         """
         self.price *= self.pay_rate
 
+
     @classmethod
-    def instantiate_from_csv(cls):
-        """класс-метод, инициализирующий экземпляры класса Item данными из файла src/items.csv"""
-        cls.all.clear()
-        csv_file = os.path.abspath(r"../src/items.csv")
+    def instantiate_from_csv(cls, csv_file):
+        """
+        Класс-метод, инициализирующий экземпляры класса Item данными из файла src/items.csv
+        """
         try:
-            with open(csv_file, newline='') as csvfile:
+            with open(csv_file) as csvfile:
                 reader = csv.DictReader(csvfile)
                 for row in reader:
-                    cls(row['name'], row['price'], row['quantity'])
+                    if list(row.keys()) == ['name', 'price', 'quantity']:
+                        cls(row['name'], row['price'], row['quantity'])
+                    else:
+                        raise InstantiateCSVError
         except FileNotFoundError:
-            print("Нет такого файла")
+            raise FileNotFoundError('Отсутствует файл item.csv')
+
+
 
 
     @staticmethod
@@ -83,5 +98,4 @@ class Item:
             return int(line)
         except ValueError:
             print("Ошибка: переданная строка не является числом")
-
 
