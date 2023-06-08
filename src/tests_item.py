@@ -1,8 +1,11 @@
 """Здесь надо написать тесты с использованием pytest для модуля item."""
-from src.item import Item
+from src.item import Item, InstantiateCSVError
 from src.phone import Phone
 from src.keyboard import KeyBoard
 import pytest
+import pathlib
+from pathlib import Path
+dir_path = pathlib.Path.cwd()
 
 
 def test_init():
@@ -46,10 +49,15 @@ def test_name_setter():
 
 
 def test_instantiate_from_csv():
+    Item.all = []
+    Item.instantiate_from_csv()
+    assert len(Item.all) == 5
     Item.instantiate_from_csv()
     assert Item.instantiate_from_csv() is None
     with pytest.raises(TypeError):
         Item.instantiate_from_csv("/home/denis/PycharmProjects/electronics-shop-project/src/item.py")
+
+
 
 def test_repr():
     with pytest.raises(TypeError):
@@ -112,3 +120,13 @@ def test_keyboard_lang():
     assert str(kb.language) == "RU"
     with pytest.raises(AttributeError):
         kb.language = 'CH'
+
+def test_FileNotFoundError_errors():
+    file = ''
+    with pytest.raises(FileNotFoundError):
+        Item.instantiate_from_csv(file)
+
+def test_InstantiateCSVError_errors():
+    path_incorrect_file = Path(dir_path, 'test_item.csv')
+    with pytest.raises(InstantiateCSVError):
+        Item.instantiate_from_csv(path_incorrect_file)
