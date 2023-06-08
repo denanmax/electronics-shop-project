@@ -55,7 +55,7 @@ def test_instantiate_from_csv():
     Item.instantiate_from_csv()
     assert Item.instantiate_from_csv() is None
     with pytest.raises(TypeError):
-        Item.instantiate_from_csv("/home/denis/PycharmProjects/electronics-shop-project/src/item.py")
+        Item.instantiate_from_csv("/src/item.py")
 
 
 
@@ -127,6 +127,6 @@ def test_FileNotFoundError_errors():
         Item.instantiate_from_csv(file)
 
 def test_InstantiateCSVError_errors():
-    path_incorrect_file = Path(dir_path, 'test_item.csv')
+    path_incorrect_file = Path(dir_path, '../src/test_item.csv')
     with pytest.raises(InstantiateCSVError):
         Item.instantiate_from_csv(path_incorrect_file)
