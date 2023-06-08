@@ -72,7 +72,7 @@ class Item:
 
 
     @classmethod
-    def instantiate_from_csv(cls, csv_file):
+    def instantiate_from_csv(cls, csv_file=''):
         """
         Класс-метод, инициализирующий экземпляры класса Item данными из файла src/items.csv
         """
